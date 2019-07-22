@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -41,8 +42,11 @@ public class BookReaderController extends Application {
         textProcessors.add(generalWordCounter);
 
         Scanner s = null;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose a file to analyse");
+        fileChooser.setInitialDirectory(new File("src/nilsholg.txt"));
         for (TextProcessor textProcessor : textProcessors) {
-            s = new Scanner(new File("src/nilsholg.txt"));
+            s = new Scanner(fileChooser.getInitialDirectory());
             s.useDelimiter("(\\s|,|\\.|:|;|!|\\?|'|\\\")+"); // se handledning
 
             while (s.hasNext()) {
@@ -71,12 +75,13 @@ public class BookReaderController extends Application {
         Button find = new Button("Find");
         find.setDefaultButton(true);
         find.setOnAction(event -> {
-            String text = textField.getText().toLowerCase();
+            String text = textField.getText().toLowerCase().replaceAll("\\s", "").trim();
             List<String> wordsList = new ArrayList<>(generalWordCounter.getKeySet());
             if (wordsList.contains(text)) {
                 listView.scrollTo(wordsList.indexOf(text));
                 System.out.println(wordsList.indexOf(text));
             } else {
+//                Show alert to inform the user that the word is not found
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Not found");
                 alert.showAndWait();
