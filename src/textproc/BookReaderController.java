@@ -55,9 +55,9 @@ public class BookReaderController extends Application {
 
         HBox hBox = new HBox();
         Button alphabetical = new Button("Alphabetical");
-        alphabetical.setOnAction(event -> System.out.println("Alphabetical"));
+        alphabetical.setOnAction(event -> words.sort((e1, e2)-> e1.getKey().compareTo(e2.getKey())));
         Button frequency = new Button("Frequency");
-        frequency.setOnAction(event -> System.out.println("Frequency"));
+        frequency.setOnAction(event -> words.sort((e1, e2) -> e1.getValue().compareTo(e2.getValue())));
         hBox.getChildren().addAll(alphabetical, frequency);
         root.setBottom(hBox);
 
