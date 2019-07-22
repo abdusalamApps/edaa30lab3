@@ -31,6 +31,12 @@ public class BookReaderController extends Application {
         while (scanner.hasNext()) {
             stopWords.add(scanner.next().toLowerCase());
         }
+
+//        Exclude numbers as well
+        for (int i = 0; i < 10000; i++) {
+             stopWords.add(String.valueOf(i));
+        }
+
         GeneralWordCounter generalWordCounter = new GeneralWordCounter(stopWords);
         textProcessors.add(generalWordCounter);
 
@@ -61,9 +67,9 @@ public class BookReaderController extends Application {
 
         TextField textField = new TextField();
         Button find = new Button("Find");
-
+        find.setDefaultButton(true);
         find.setOnAction(event -> {
-            String text = textField.getText();
+            String text = textField.getText().toLowerCase();
             List<String> wordsList = new ArrayList<>(generalWordCounter.getKeySet());
             if (wordsList.contains(text)) {
                 listView.scrollTo(wordsList.indexOf(text));
