@@ -3,6 +3,8 @@ package textproc;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -52,8 +54,10 @@ public class BookReaderController extends Application {
         root.setCenter(listView);
 
         HBox hBox = new HBox();
-        Button alphabetical = new Button("Alphabetic");
+        Button alphabetical = new Button("Alphabetical");
+        alphabetical.setOnAction(event -> System.out.println("Alphabetical"));
         Button frequency = new Button("Frequency");
+        frequency.setOnAction(event -> System.out.println("Frequency"));
         hBox.getChildren().addAll(alphabetical, frequency);
         root.setBottom(hBox);
 
