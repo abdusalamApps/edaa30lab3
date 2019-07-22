@@ -6,8 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -49,7 +48,8 @@ public class BookReaderController extends Application {
         }
         s.close();
 
-        ObservableList<Map.Entry<String, Integer>> words = FXCollections.observableArrayList(generalWordCounter.getWords());
+        Set<Map.Entry<String, Integer>> wordsSet = generalWordCounter.getWords();
+        ObservableList<Map.Entry<String, Integer>> words = FXCollections.observableArrayList(wordsSet);
         ListView<Map.Entry<String, Integer>> listView = new ListView<>(words);
         root.setCenter(listView);
 
@@ -58,7 +58,25 @@ public class BookReaderController extends Application {
         alphabetical.setOnAction(event -> words.sort((e1, e2)-> e1.getKey().compareTo(e2.getKey())));
         Button frequency = new Button("Frequency");
         frequency.setOnAction(event -> words.sort((e1, e2) -> e1.getValue().compareTo(e2.getValue())));
-        hBox.getChildren().addAll(alphabetical, frequency);
+
+        TextField textField = new TextField();
+        Button find = new Button("Find");
+
+        find.setOnAction(event -> {
+            String text = textField.getText();
+            List<String> wordsList = new ArrayList<>(generalWordCounter.getKeySet());
+            if (wordsList.contains(text)) {
+                listView.scrollTo(wordsList.indexOf(text));
+                System.out.println(wordsList.indexOf(text));
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Not found");
+                alert.showAndWait();
+            }
+
+        });
+
+        hBox.getChildren().addAll(alphabetical, frequency, textField, find);
         root.setBottom(hBox);
 
     }

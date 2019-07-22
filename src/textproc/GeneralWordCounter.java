@@ -1,6 +1,7 @@
 package textproc;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GeneralWordCounter implements TextProcessor {
 
@@ -31,12 +32,31 @@ public class GeneralWordCounter implements TextProcessor {
         wordList.sort(new WordCountComparator());
 
         for (int i = 0; i < 10; i++) {
-            System.out.println((i+1) + ": " + wordList.get(i));
+            System.out.println((i + 1) + ": " + wordList.get(i));
         }
+
 
     }
 
     public Set<Map.Entry<String, Integer>> getWords() {
         return map.entrySet();
     }
+
+    public Set<String> getKeySet() {
+        return map.keySet();
+    }
+
+//    public int wordFrequency(String word) {
+//        if (!map.containsKey(word) || stopWords.contains(word)) {
+//            return 0;
+//        } else {
+//            int frequency = 0;
+//            for (String s : map.keySet()) {
+//                if (s.equals(word)) {
+//                    frequency++;
+//                }
+//            }
+//            return frequency;
+//        }
+//    }
 }
