@@ -4,8 +4,10 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -48,6 +50,12 @@ public class BookReaderController extends Application {
         ObservableList<Map.Entry<String, Integer>> words = FXCollections.observableArrayList(generalWordCounter.getWords());
         ListView<Map.Entry<String, Integer>> listView = new ListView<>(words);
         root.setCenter(listView);
+
+        HBox hBox = new HBox();
+        Button alphabetical = new Button("Alphabetic");
+        Button frequency = new Button("Frequency");
+        hBox.getChildren().addAll(alphabetical, frequency);
+        root.setBottom(hBox);
 
     }
 
