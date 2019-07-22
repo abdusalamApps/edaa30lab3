@@ -59,6 +59,8 @@ public class BookReaderController extends Application {
         ListView<Map.Entry<String, Integer>> listView = new ListView<>(words);
         root.setCenter(listView);
 
+//        v1,v2 and v3
+
         HBox hBox = new HBox();
         Button alphabetical = new Button("Alphabetical");
         alphabetical.setOnAction(event -> words.sort((e1, e2)-> e1.getKey().compareTo(e2.getKey())));
@@ -83,6 +85,7 @@ public class BookReaderController extends Application {
         });
 
         hBox.getChildren().addAll(alphabetical, frequency, textField, find);
+
         root.setBottom(hBox);
 
     }
